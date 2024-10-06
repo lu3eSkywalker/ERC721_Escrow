@@ -21,7 +21,6 @@ const GetContractByUser = () => {
   async function getContractByUser() {
     const getContracts = await contract.getUserContracts(userAddress);
     const response = getContracts.toString();
-    console.log(response);
     setNFTContractAddress(response);
   }
 
