@@ -1,4 +1,4 @@
-import CreateEscrowForKnown from '@/components/CreateEscrowForKnown'
+import CreateEscrowForKnown from '@/components/Escrow/ForKnown/CreateEscrowForKnown'
 import React from 'react'
 
 const escrowforknown = () => {

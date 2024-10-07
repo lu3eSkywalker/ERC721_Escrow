@@ -1,4 +1,4 @@
-import CompleteEscrow from '@/components/CompleteEscrow'
+import CompleteEscrow from '@/components/Escrow/ForKnown/CompleteEscrow'
 import React from 'react'
 
 const completeescrow = () => {
@@ -9,4 +9,4 @@ const completeescrow = () => {
   )
 }
 
-export default completeescrow
+export default completeescrow;
