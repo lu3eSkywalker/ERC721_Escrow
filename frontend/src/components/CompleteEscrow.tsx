@@ -1,25 +1,16 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
 
-declare global {
-  interface Window {
-    ethereum: any;
-  }
-}
-
-const CreateEscrowForKnown = () => {
-  const [recepientAddress, setRecepientAddress] = useState<string>(
-    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
-  );
+const CompleteEscrow = () => {
   const [tokenId, setTokenId] = useState<number>();
-  const [price, setPrice] = useState<number>();
   const [nftContractAddress, setNFTContractAddress] = useState<string>(
     "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
   );
+  const [enterEth, setEnterEth] = useState<number>();
 
-  const ABI = ["function createEscrow(uint256, address, uint256) public"];
+  const ABI = ["function completeEscrow(uint256) public payable"];
 
-  async function createEscrow() {
+  async function completeEscrow() {
     if (window.ethereum) {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -31,11 +22,12 @@ const CreateEscrowForKnown = () => {
           signer
         );
 
-        const createEscrowForNFT = await contract.createEscrow(tokenId, recepientAddress, price);
+        const approveUser = await contract.completeEscrow(tokenId, {
+          value: enterEth,
+        });
 
-        const response = await createEscrowForNFT.wait();
+        const response = await approveUser.wait();
         console.log(response.toString());
-
       } catch (error: any) {
         console.error("Error launching token:", error);
         alert(
@@ -51,15 +43,6 @@ const CreateEscrowForKnown = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-8 w-80">
         <div>
-          <input
-            type="text"
-            placeholder="recepient address"
-            onChange={(e) => setRecepientAddress(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-
-          <br />
-
           <input
             type="number"
             placeholder="token ID"
@@ -80,12 +63,15 @@ const CreateEscrowForKnown = () => {
 
           <input
             type="number"
-            placeholder="nft price"
-            onChange={(e) => setPrice(parseInt(e.target.value))}
+            placeholder="eth in wei"
+            onChange={(e) => setEnterEth(parseInt(e.target.value))}
             className="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <button onClick={() => createEscrow()}>Initialize the contract</button>
+
+        <button onClick={() => completeEscrow()}>
+          Initialize the contract
+        </button>
         <br></br>
         <br></br>
       </div>
@@ -93,4 +79,4 @@ const CreateEscrowForKnown = () => {
   );
 };
 
-export default CreateEscrowForKnown;
+export default CompleteEscrow;
