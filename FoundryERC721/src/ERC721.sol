@@ -23,8 +23,8 @@ contract ERC721 {
     // token id => token uri
     mapping(uint256 => string) _tokenUris;
 
-    // Escrow Structure: token id => escrow details
     struct Escrow {
+        uint256 tokenId;
         address escrower; // The token owner who places the token in escrow
         address recipient; // The recipient who will receive the token conditions are met
         uint256 price; // The price at which the token will be sold
@@ -33,6 +33,11 @@ contract ERC721 {
 
     // token id => escrow struct
     mapping(uint256 => Escrow) public escrows;
+
+    // mapping(uint256 => EscrowDetails) public escrows; // Using tokenId as key
+
+    // Array to store tokenIds of escrows for unknown parties
+    uint256[] public unknownEscrowsIds;
 
     event Transfer(
         address indexed _from,
@@ -58,6 +63,12 @@ contract ERC721 {
     );
     event EscrowCancelled(address indexed _escrower, uint256 indexed _tokenId);
     event EscrowCompleted(address indexed _recipient, uint256 indexed _tokenId);
+
+    event EscrowCreatedForUnkownParties(
+        address indexed _escrower,
+        uint256 indexed _tokenId,
+        uint256 price
+    );
 
     constructor(string memory _name, string memory _symbol, address _owner) {
         name = _name;
@@ -138,6 +149,7 @@ contract ERC721 {
 
         // Set up escrow
         escrows[_tokenId] = Escrow({
+            tokenId: _tokenId,
             escrower: msg.sender,
             recipient: _recipient,
             price: _price,
@@ -181,10 +193,12 @@ contract ERC721 {
         emit EscrowCompleted(msg.sender, _tokenId);
     }
 
-
     // Escrow for trade between unknown parties
     // Create an escrow agreement (no predefined recipient)
-    function createEscrowForUnknownParties(uint256 _tokenId, uint256 _price) public {
+    function createEscrowForUnknownParties(
+        uint256 _tokenId,
+        uint256 _price
+    ) public {
         require(ownerOf(_tokenId) == msg.sender, "!Auth");
         require(_price > 0, "!Price");
 
@@ -193,13 +207,17 @@ contract ERC721 {
 
         // Set up escrow with no predefined recipient
         escrows[_tokenId] = Escrow({
+            tokenId: _tokenId,
             escrower: msg.sender,
-            recipient: address(0), // No recipient set yet
+            recipient: address(0),
             price: _price,
             isActive: true
         });
 
-        emit EscrowCreated(msg.sender, address(0), _tokenId, _price); // Emit with recipient as zero address
+        // Store the tokenID in the unknown escrows array
+        unknownEscrowsIds.push(_tokenId);
+
+        emit EscrowCreatedForUnkownParties(msg.sender, _tokenId, _price); // Emit with recipient as zero address
     }
 
     // Complete escrow (anyone who pays the correct price can claim the token)
@@ -218,5 +236,50 @@ contract ERC721 {
         escrows[_tokenId].isActive = false;
 
         emit EscrowCompleted(msg.sender, _tokenId); // Emit with the actual recipient
+    }
+
+    // Get active escrows for unknown parties
+    function getActiveUnknownEscrows() public view returns (uint256[] memory) {
+        uint256 count = 0;
+
+        // Count the number of active escrows first
+        for (uint256 i = 0; i < unknownEscrowsIds.length; i++) {
+            if (escrows[unknownEscrowsIds[i]].isActive) {
+                count++;
+            }
+        }
+
+        // Create a new array for active escrows
+        uint256[] memory activeEscrows = new uint256[](count);
+        uint256 index = 0;
+
+        // Populate the array with active escrow token IDs
+        for (uint256 i = 0; i < unknownEscrowsIds.length; i++) {
+            if (escrows[unknownEscrowsIds[i]].isActive) {
+                activeEscrows[index] = unknownEscrowsIds[i];
+                index++;
+            }
+        }
+
+        return activeEscrows;
+    }
+
+    function getActiveEscrowDetails() public view returns (Escrow[] memory) {
+        uint256[] memory activeEscrows = getActiveUnknownEscrows(); // Get all active escrow token IDs
+        Escrow[] memory details = new Escrow[](activeEscrows.length); // Create array to hold the details
+
+        for (uint256 i = 0; i < activeEscrows.length; i++) {
+            uint256 tokenId = activeEscrows[i]; // Get tokenId
+            Escrow memory escrow = escrows[tokenId]; // Get escrow details
+
+            details[i] = Escrow({
+                tokenId: tokenId,
+                price: escrow.price,
+                escrower: escrow.escrower,
+                recipient: escrow.recipient,
+                isActive: escrow.isActive
+            });
+        }
+        return details; // Return array of escrow details
     }
 }
