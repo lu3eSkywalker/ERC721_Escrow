@@ -25,7 +25,7 @@ const CompleteEscrow = () => {
         const approveUser = await contract.completeEscrow(tokenId, {
           value: enterEth,
         });
-
+        
         const response = await approveUser.wait();
         console.log(response.toString());
       } catch (error: any) {

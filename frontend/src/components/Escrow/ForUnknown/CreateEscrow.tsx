@@ -35,6 +35,7 @@ const CreateEscrowForUnKnown = () => {
 
         const response = await createEscrowForNFT.wait();
         console.log(response.toString());
+        console.log(response);
 
       } catch (error: any) {
         console.error("Error launching token:", error);
