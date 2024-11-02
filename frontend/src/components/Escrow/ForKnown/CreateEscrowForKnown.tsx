@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
+import CreateKnownEscrowInfo from "@/components/Walkthrough/ForKnown/CreateKnownEscrowInfo";
 
 declare global {
   interface Window {
@@ -58,9 +59,9 @@ const CreateEscrowForKnown = () => {
         <br />
         <br />
         <br />
-        {/* <div className="flex justify-center bg-gray-100">
-          <LaunchERC721Info />
-        </div> */}
+        <div className="flex justify-center bg-gray-100">
+          <CreateKnownEscrowInfo />
+        </div>
 
         <div>
           <div

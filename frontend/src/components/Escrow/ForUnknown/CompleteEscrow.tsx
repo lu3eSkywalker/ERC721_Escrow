@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
+import CompleteKnownEscrowInfo from "@/components/Walkthrough/ForKnown/CompleteKnownEscrowInfo";
+import CompleteUnknownEscrowInfo from '../../Walkthrough/ForUnknown/CompleteUnknownEscrowInfo';
 
 const CompleteEscrow = () => {
   const [tokenId, setTokenId] = useState<number>();
@@ -52,9 +54,9 @@ const CompleteEscrow = () => {
         <br />
         <br />
         <br />
-        {/* <div className="flex justify-center bg-gray-100">
-        <LaunchERC721Info />
-      </div> */}
+        <div className="flex justify-center bg-gray-100">
+          <CompleteUnknownEscrowInfo />
+        </div>
 
         <div>
           <div

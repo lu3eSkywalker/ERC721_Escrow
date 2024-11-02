@@ -1,12 +1,16 @@
-import CreateEscrowForKnown from '@/components/Escrow/ForKnown/CreateEscrowForKnown'
-import React from 'react'
+import Footer from "@/components/Design/Footer";
+import Navbar from "@/components/Design/Navbar";
+import CreateEscrowForKnown from "@/components/Escrow/ForKnown/CreateEscrowForKnown";
+import React from "react";
 
 const escrowforknown = () => {
   return (
     <div>
-        <CreateEscrowForKnown />
+      <Navbar />
+      <CreateEscrowForKnown />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default escrowforknown
+export default escrowforknown;

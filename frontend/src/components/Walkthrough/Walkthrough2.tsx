@@ -24,11 +24,11 @@ const Walkthrough2 = () => {
             <div className="text-lg font-black">
               <a href="./launcherc721">Create Escrow For Known Parties</a>
             </div>
-            In this process, we first deploy an ERC-721 contract to create a
-            unique NFT collection. During deployment, we specify the contract's
-            name and symbol, which serve as identifiers for the collection.
-            After the contract is successfully deployed, we can mint NFTs to
-            individual addresses, each token carrying unique metadata.
+            In this step, we will Create Escrows for Known Parties. In escrow
+            for known parties We would have to pre-define the receiver of the
+            NFT. And only that person can acquire the NFT after paying the set
+            Price.To create an escrow, We'll require these four fields: Receiver
+            Address, TokenID, Contract Address and Price.
           </div>
           <hr />
         </li>
@@ -51,12 +51,14 @@ const Walkthrough2 = () => {
           <div className="timeline-end mb-10">
             <time className="font-mono italic">Step 8</time>
             <div className="text-lg font-black">
-              <a href="./getcontractsbyuser">Complete Escrow For Known Parties</a>
+              <a href="./getcontractsbyuser">
+                Complete Escrow For Known Parties
+              </a>
             </div>
-            To retrieve the ERC-721 contract address, we’ll use the user's
-            public key to identify any associated NFT contracts. By querying the
-            blockchain with the user's address, we can locate any deployed
-            ERC-721 contracts linked to that address.
+            In this step, we will Completing the Known escrow that we have
+            created. Only the receiver can complete this escrow. We would have
+            to know the Escrow info that is NFT Contract Address, Token ID, and
+            Price for which the NFT has be escrowed
           </div>
           <hr />
         </li>
@@ -79,16 +81,11 @@ const Walkthrough2 = () => {
           <div className="timeline-start mb-10 md:text-end">
             <time className="font-mono italic">Step 9</time>
             <div className="text-lg font-black">
-              <a href="./mintnft">
-                Create Escrow for Unknown Parties
-              </a>
+              <a href="./mintnft">Create Escrow for Unknown Parties</a>
             </div>
-            In this step, we’ll mint NFTs to the previously deployed contract
-            using the contract address and an NFT URI. The URI includes
-            essential metadata such as the NFT’s name, symbol, image, and
-            description. This information is stored off-chain and linked to the
-            NFT, defining its unique attributes. By minting, we add new tokens
-            to the collection, making them available for ownership and transfer.
+            In this step, we will Create Escrow for Unknown Parties. In escrow
+            for unknown party, any one can participate in the escrow and pay for
+            the described amount escrow and own the NFT.
           </div>
           <hr />
         </li>
@@ -113,15 +110,10 @@ const Walkthrough2 = () => {
             <div className="text-lg font-black">
               <a href="./approve">Complete Escrow for Unknown Parties</a>
             </div>
-            In this step, we enable NFT approvals, allowing a specified spender
-            to transfer the NFT on behalf of the owner. With this approval,
-            marketplaces gain permission to manage the NFT in escrow for
-            potential sale. This setup provides flexibility, as approved
-            platforms can list and sell the NFT while keeping it secure. This
-            feature streamlines transactions, making it easier to buy and sell
-            NFTs on marketplaces.
+            In this step, we will Complete Escrow for Unknown Parties. In escrow
+            for unknown party, any one can participate in the escrow and pay for
+            the described amount escrow and own the NFT.
           </div>
-          <hr />
         </li>
       </ul>
     </div>

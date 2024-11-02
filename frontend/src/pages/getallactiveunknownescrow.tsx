@@ -1,12 +1,16 @@
-import GetActiveEscrow2 from '@/components/GetActiveEscrow2'
-import React from 'react'
+import Footer from "@/components/Design/Footer";
+import Navbar from "@/components/Design/Navbar";
+import GetActiveEscrow2 from "@/components/Escrow/ForUnknown/GetActiveEscrow";
+import React from "react";
 
 const getactiveescrow2 = () => {
   return (
     <div>
-        <GetActiveEscrow2 />
+      <Navbar />
+      <GetActiveEscrow2 />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default getactiveescrow2
+export default getactiveescrow2;

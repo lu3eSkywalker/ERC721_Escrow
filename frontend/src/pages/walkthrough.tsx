@@ -1,16 +1,16 @@
 import Footer from "@/components/Design/Footer";
 import Navbar from "@/components/Design/Navbar";
-import CompleteEscrow from "@/components/Escrow/ForKnown/CompleteEscrow";
+import Walkthrough2 from "@/components/Walkthrough/Walkthrough2";
 import React from "react";
 
-const completeescrow = () => {
+const walkthrough2 = () => {
   return (
     <div>
       <Navbar />
-      <CompleteEscrow />
+      <Walkthrough2 />
       <Footer />
     </div>
   );
 };
 
-export default completeescrow;
+export default walkthrough2;
