@@ -139,10 +139,10 @@ const CreateEscrowForKnown = () => {
                     Complete Escrow For Known Parties
                   </a>
                 </li>
-                <li className="step" data-content="8">
+                <li className="step" data-content="9">
                   <a href="./createescrowforunknown">Create Escrow For Unknown Parties</a>
                 </li>
-                <li className="step" data-content="9">
+                <li className="step" data-content="10">
                   <a href="./completeescrowforunkown">Complete Escrows For Uknown Parties</a>
                 </li>
               </ul>

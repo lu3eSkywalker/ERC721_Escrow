@@ -123,12 +123,12 @@ const CompleteEscrow = () => {
                     Complete Escrow For Known Parties
                   </a>
                 </li>
-                <li className="step step-primary" data-content="8">
+                <li className="step step-primary" data-content="9">
                   <a href="./createescrowforunknown">
                     Create Escrow For Unknown Parties
                   </a>
                 </li>
-                <li className="step step-primary" data-content="9">
+                <li className="step step-primary" data-content="10">
                   <a href="./completeescrowforunkown">
                     Complete Escrows For Uknown Parties
                   </a>

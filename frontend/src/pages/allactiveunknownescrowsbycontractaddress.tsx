@@ -1,4 +1,4 @@
-import AllTheEscrows from '@/components/Escrow/AllTheEscrows'
+import AllTheEscrows from '@/components/Escrow/ForUnknown/GetAllTheUnknownEscrowByNFTAddress'
 import React from 'react'
 
 const allactiveescrows = () => {
